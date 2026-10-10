@@ -1,0 +1,70 @@
+/* Report-only styles. Black on white, Times New Roman, A4 portrait, one thin border per page. */
+@page { size: A4 portrait; margin: 0; }
+
+html, body { margin: 0; padding: 0; background: #fff; color: #000; }
+body {
+  /* Times New Roman first; Liberation Serif / Tinos are metric-compatible fallbacks. */
+  font-family: "Times New Roman", Times, "Liberation Serif", Tinos, serif;
+  font-size: 12pt;
+  line-height: 1.25;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.screen-bar { padding: 8px 12px; font-size: 11pt; border-bottom: 1px solid #000; }
+.screen-bar button { font: inherit; padding: 2px 10px; border: 1px solid #000; background: #fff; color: #000; cursor: pointer; }
+
+.page {
+  box-sizing: border-box;
+  width: 210mm;
+  height: 297mm;
+  padding: 8mm;               /* keeps the border inside the printable area */
+  margin: 0 auto 6mm;
+  background: #fff;
+  break-after: page;
+  page-break-after: always;
+  overflow: hidden;
+}
+.page:last-of-type { break-after: auto; page-break-after: auto; }
+
+.sheet {
+  box-sizing: border-box;
+  height: 100%;
+  border: 0.75pt solid #000;
+  padding: 13mm 16mm 12mm;
+  overflow: hidden;
+}
+
+.exno-row { display: grid; grid-template-columns: 30mm 1fr 30mm; align-items: baseline; margin-bottom: 8mm; }
+.exno { font-size: 12pt; font-weight: bold; text-transform: uppercase; }
+.exp-title { font-size: 16pt; font-weight: bold; text-transform: uppercase; text-align: center; line-height: 1.2; margin: 0; }
+
+h2.sec { font-size: 13pt; font-weight: bold; text-transform: uppercase; margin: 5mm 0 2mm; break-after: avoid; page-break-after: avoid; }
+h3.sub { font-size: 12pt; font-weight: bold; margin: 4mm 0 1.5mm; break-after: avoid; page-break-after: avoid; }
+p { margin: 0 0 2.5mm; text-align: left; }
+ol, ul { margin: 0 0 2.5mm; padding-left: 9mm; }
+li { margin-bottom: 1.8mm; text-align: left; }
+.indent { margin-left: 8mm; }
+
+pre.code {
+  font-family: "Times New Roman", Times, "Liberation Serif", Tinos, serif;
+  font-size: 9.5pt;
+  line-height: 1.2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 4;
+  margin: 0 0 3mm;
+  padding: 0;
+  background: none;
+  color: #000;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.fig { text-align: center; margin: 2mm 0 0; break-inside: avoid; }
+.fig img { display: block; width: 100%; height: auto; margin: 0 auto; }
+.caption { font-size: 10.5pt; text-align: center; margin-top: 1.5mm; }
+
+@media print {
+  .screen-bar { display: none; }
+  .page { margin: 0; }
+}

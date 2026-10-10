@@ -75,3 +75,12 @@ Errors share one shape: `{ "error": { "code", "message", "fields"? } }`. Provide
 - Execution duration is measured as a round trip by PatchPilot; the provider contract reports none.
 - Sessions are in memory; at most 4 run concurrently.
 - Not done: authentication, rate limiting per user, persistence — add these before exposing the app publicly.
+
+## Project report (college Web Technology mini project)
+
+A print-ready, black-and-white A4 report lives at **`/report`** (`app/(report)/`). It has its own root layout and stylesheet, so none of the website's dark theme applies.
+
+1. Run the app (`npm run dev`) and open `http://localhost:3000/report`.
+2. Click **Print / Save as PDF** (or Ctrl/Cmd+P), choose **A4**, margins **None**, and enable **Background graphics** if offered. The page border is part of each page, so it prints on every page.
+3. Code excerpts are read live from the project's real source files (`app/(report)/report/excerpts.ts`). `EX NO:` is intentionally blank, and the area under the output screenshot is intentionally empty for the result.
+4. `public/report/output.png` is the screenshot used in the report; `public/report/PatchPilot-Report.pdf` is a pre-rendered copy. The pre-rendered copy was produced in an environment without Times New Roman, so it uses the metric-compatible Liberation Serif; printing from your own browser uses real Times New Roman if installed.
