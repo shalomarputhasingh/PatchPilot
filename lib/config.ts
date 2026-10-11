@@ -5,6 +5,9 @@ export function getConfig() {
   const groqKey = process.env.GROQ_API_KEY?.trim() ?? "";
   const groqModel = process.env.GROQ_MODEL?.trim() ?? "";
   const sandboxUrl = process.env.SANDBOX_API_URL?.trim() ?? "";
+  const sandboxKey = process.env.SANDBOX_API_KEY?.trim() ?? "";
+  // A custom URL implies Piston unless told otherwise; with no URL the default is RapidAPI SandboxAPI.
+  const sandboxProvider = (process.env.SANDBOX_PROVIDER?.trim() || (sandboxUrl ? "piston" : "rapidapi")).toLowerCase();
   return {
     groq: {
       apiKey: groqKey,
@@ -13,11 +16,11 @@ export function getConfig() {
       configured: Boolean(groqKey && groqModel),
     },
     sandbox: {
-      provider: (process.env.SANDBOX_PROVIDER?.trim() || "piston").toLowerCase(),
+      provider: sandboxProvider,
       url: sandboxUrl.replace(/\/+$/, ""),
-      apiKey: process.env.SANDBOX_API_KEY?.trim() ?? "",
+      apiKey: sandboxKey,
       runTimeoutMs: intEnv("SANDBOX_RUN_TIMEOUT_MS", 10_000, 1_000, 60_000),
-      configured: Boolean(sandboxUrl),
+      configured: sandboxProvider === "rapidapi" ? Boolean(sandboxKey) : Boolean(sandboxUrl),
     },
     sessionBudgetMs: intEnv("SESSION_BUDGET_MS", 150_000, 10_000, 600_000),
   };

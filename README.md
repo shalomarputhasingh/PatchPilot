@@ -21,8 +21,8 @@ PatchPilot keeps session state in server memory and runs the workflow in the bac
 |---|---|
 | `GROQ_API_KEY`, `GROQ_MODEL` | Required. No model default is assumed; pick a Groq model that supports JSON output (e.g. `openai/gpt-oss-120b`). |
 | `GROQ_BASE_URL` | Optional API base override. |
-| `SANDBOX_PROVIDER` | `piston` (the only adapter implemented). |
-| `SANDBOX_API_URL`, `SANDBOX_API_KEY` | Sandbox base URL; optional bearer token. |
+| `SANDBOX_PROVIDER` | `rapidapi` (SandboxAPI on RapidAPI; default when no URL is set) or `piston`. |
+| `SANDBOX_API_URL`, `SANDBOX_API_KEY` | `rapidapi`: the key is your `X-RapidAPI-Key` (URL optional). `piston`: base URL required, optional bearer token. |
 | `NEXT_PUBLIC_APP_URL` | App URL. |
 | `SESSION_BUDGET_MS`, `SANDBOX_RUN_TIMEOUT_MS` | Optional total workflow budget (default 150 s) and per-run timeout (default 10 s). |
 
@@ -35,7 +35,7 @@ PatchPilot keeps session state in server memory and runs the workflow in the bac
 
 ## The sandbox contract — read this
 
-No sandbox provider was specified for this project. `lib/sandbox/piston.ts` implements the interface in `lib/sandbox/types.ts` for **Piston-compatible APIs** (`POST {SANDBOX_API_URL}/api/v2/execute`), based on Piston's public documentation. **It has not been verified against a live deployment**; tests run it against a local double that mimics the documented shape. Before trusting it, point it at your Piston instance and check: auth header format, how timeouts are reported (v3 `status: "TO"` vs. `SIGKILL`), and multi-file support (the test harness needs it).
+The default adapter, `lib/sandbox/rapidapi.ts`, targets [SandboxAPI on RapidAPI](https://rapidapi.com/sandboxapidev/api/sandboxapi) (`POST /v1/execute`, `python3`; multi-file runs upload a base64 ZIP with a `run_script`), written from its public listing. Subscribe to the API on RapidAPI and set `SANDBOX_API_KEY`. Multi-file execution is used by the test harness; verify it against your plan. An alternative adapter, `lib/sandbox/piston.ts`, implements the interface in `lib/sandbox/types.ts` for **Piston-compatible APIs** (`POST {SANDBOX_API_URL}/api/v2/execute`), based on Piston's public documentation. **It has not been verified against a live deployment**; tests run it against a local double that mimics the documented shape. Before trusting it, point it at your Piston instance and check: auth header format, how timeouts are reported (v3 `status: "TO"` vs. `SIGKILL`), and multi-file support (the test harness needs it).
 
 Isolation, resource limits and network restrictions are enforced by the sandbox deployment, not by PatchPilot. **Do not accept arbitrary user code unless your sandbox enforces them.** To use another provider, implement `SandboxAdapter` and register it in `lib/sandbox/index.ts`; nothing else changes. Submitted code never runs in the Next.js process.
 
