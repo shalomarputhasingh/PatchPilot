@@ -132,7 +132,7 @@ export default function ReportPage() {
           </div>
           <div style={{ marginTop: "auto" }}>
             <h2 className="sec" style={{ margin: "0 0 2mm" }}>RESULT:</h2>
-            <p style={{ margin: 0 }}>Thus, the PatchPilot – Python Debugging and Verification Workbench was executed properly. It found the mistake in the code, fixed it, and the output was obtained very fast and verified.</p>
+            <p style={{ margin: 0 }}>Thus, the program is executed and the output is verified.</p>
           </div>
         </div>
       </div>
