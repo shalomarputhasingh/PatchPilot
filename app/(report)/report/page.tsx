@@ -123,12 +123,16 @@ export default function ReportPage() {
 
       {/* PAGE 5 */}
       <div className="page">
-        <div className="sheet">
+        <div className="sheet" style={{ display: "flex", flexDirection: "column" }}>
           <h2 className="sec" style={{ marginTop: 0 }}>OUTPUT:</h2>
           <div className="fig">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/report/output.png" alt="PatchPilot workspace after a completed investigation" />
             <div className="caption">Fig. 1 PatchPilot workspace after an investigation</div>
+          </div>
+          <div style={{ marginTop: "auto" }}>
+            <h2 className="sec" style={{ margin: "0 0 2mm" }}>RESULT:</h2>
+            <p style={{ margin: 0 }}>Thus, the program is executed and the output is verified.</p>
           </div>
         </div>
       </div>
