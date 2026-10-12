@@ -132,7 +132,7 @@ export default function ReportPage() {
           </div>
           <div style={{ marginTop: "auto" }}>
             <h2 className="sec" style={{ margin: "0 0 2mm" }}>RESULT:</h2>
-            <p style={{ margin: 0 }}>Thus, the program is executed and the output is verified. The original code returned -1900; after the patch it returned 80 and all 3 regression tests passed (status: VERIFIED).</p>
+            <p style={{ margin: 0 }}>Thus, the program is executed and the output is verified. The website found the mistake in the code, fixed it, and confirmed that the corrected program gives the right answer.</p>
           </div>
         </div>
       </div>
